@@ -1,0 +1,91 @@
+<import from="components/door-state.html"></import>
+<import from="components/modal-frame.html"></import>
+
+<import from="components/forms/change-lights-form"></import>
+<import from="components/forms/change-sign-form"></import>
+
+<containerless/>
+
+<div class="p-4">
+  <div blur-sm.class="activeModal !== null"
+       select-none.class="activeModal !== null">
+    <div
+      class="grid grid-rows-2 sm:grid-flow-col gap-2 sm:auto-cols-max sm:justify-center">
+
+      <div class="inline-block row-span-2 sm:max-w-fit">
+        <door-state state.bind="doorState"></door-state>
+      </div>
+
+      <button type="submit"
+              class="block
+                    p-6 sm:p-2
+                    border border-1 rounded rounded-lg
+                    ring-offset-2 ring-2
+                    border-slate-400 bg-slate-50 text-slate-900 ring-transparent
+                    hover:bg-slate-200 active:bg-slate-400 focus:ring-slate-400"
+              click.trigger="activeModal = 'change-lights'">
+        Change LED Lights
+      </button>
+
+      <button type="submit"
+              class="block
+                    p-6 sm:p-2
+                    border border-1 rounded rounded-lg
+                    ring-offset-2 ring-2
+                    border-slate-400 bg-slate-50 text-slate-900 ring-transparent
+                    hover:bg-slate-200 active:bg-slate-400 focus:ring-slate-400"
+              click.trigger="activeModal = 'change-sign'">
+        Change Sign
+      </button>
+
+    </div>
+
+
+    <div
+      class="absolute top-0 left-0 w-screen h-screen select-none"
+      hidden.class="activeModal === null"
+      click.trigger="activeModal = null">
+      &nbsp;
+    </div>
+  </div>
+  <modal-frame active-modal.bind="activeModal"
+               modal-name="change-lights"
+               is-closeable="true">
+    <div class="place-self-center self-start
+                w-3/4 lg:w-1/2 min-h-fit
+                drop-shadow-xl shadow">
+      <change-lights-form active-modal.bind="activeModal"
+                        cart-api.bind="cartApi">
+      </change-lights-form>
+    </div>
+  </modal-frame>
+
+  <modal-frame active-modal.bind="activeModal"
+               modal-name="change-sign"
+               is-closeable="true">
+    <div class="place-self-center self-start
+                w-3/4 lg:w-1/2 min-h-fit
+                drop-shadow-xl shadow">
+      <change-sign-form active-modal.bind="activeModal"
+                        cart-api.bind="cartApi">
+      </change-sign-form>
+    </div>
+  </modal-frame>
+
+  <modal-frame active-modal.bind="activeModal"
+               modal-name="network-failure">
+    <div class="place-self-center
+                w-3/4 lg:w-1/2 min-h-fit
+                drop-shadow-xl shadow">
+      <div class="w-full h-full
+                border border-2 rounded-sm sm:rounded-md
+                border-red-700 bg-red-50 text-red-800
+                px-4 py-8
+                text-lg md:text-3xl lg:text-6xl
+                select-none
+                grid place-content-center">
+        Network Failure
+      </div>
+    </div>
+  </modal-frame>
+</div>

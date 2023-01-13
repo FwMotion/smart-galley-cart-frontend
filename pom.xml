@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation=" http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd http://www.w3.org/2001/XMLSchema-instance https://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.fwmotion</groupId>
+  <artifactId>smart-galley-cart-frontend</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>Smart Galley Cart Frontend</name>
+  <description><![CDATA[
+    A frontend to the Smart Galley Cart service
+  ]]></description>
+
+  <inceptionYear>2023</inceptionYear>
+
+  <scm>
+    <url>https://github.com/FwMotion/smart-galley-cart-frontend/tree/main</url>
+    <connection>scm:git:https://github.com/FwMotion/smart-galley-cart-frontend.git</connection>
+    <developerConnection>scm:git:https://github.com/FwMotion/smart-galley-cart-frontend.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+  <developers>
+    <developer>
+      <id>rmgrimm</id>
+      <name>Robert Grimm</name>
+      <email>rgrimm@redhat.com</email>
+      <url>https://github.com/rmgrimm</url>
+      <timezone>America/Chicago</timezone>
+      <organization>Red Hat, Inc.</organization>
+      <organizationUrl>https://www.redhat.com</organizationUrl>
+      <roles>
+        <role>maintainer</role>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <properties>
+    <project.build.outputTimestamp>1</project.build.outputTimestamp>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <openapi-generator-maven-plugin.version>6.2.1</openapi-generator-maven-plugin.version>
+    <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+    <jetty-maven-plugin.version>11.0.13</jetty-maven-plugin.version>
+
+    <inputSpec>${project.basedir}/src/main/openapi/smart-galley-cart.yaml</inputSpec>
+
+    <nodeVersion>v18.13.0</nodeVersion>
+    <jsModuleName>smart_galley_cart</jsModuleName>
+  </properties>
+
+  <dependencies>
+  </dependencies>
+
+  <build>
+    <defaultGoal>package</defaultGoal>
+
+    <resources>
+      <resource>
+        <directory>src/main/webapp/dist</directory>
+        <targetPath>${project.build.outputDirectory}/META-INF/resources</targetPath>
+        <filtering>false</filtering>
+      </resource>
+    </resources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.openapitools</groupId>
+        <artifactId>openapi-generator-maven-plugin</artifactId>
+        <version>${openapi-generator-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>generate-rest-client</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${inputSpec}</inputSpec>
+              <output>
+                ${project.build.directory}/generated-sources/${jsModuleName}
+              </output>
+              <skipValidateSpec>false</skipValidateSpec>
+
+              <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
+
+              <globalProperties>
+                <skipFormModel>false</skipFormModel>
+              </globalProperties>
+
+              <generatorName>javascript-flowtyped</generatorName>
+
+              <!-- Generate API client, but no test stubs or docs -->
+              <generateApis>true</generateApis>
+              <generateApiTests>false</generateApiTests>
+              <generateApiDocumentation>false</generateApiDocumentation>
+
+              <!--
+                Generate models based upon OpenAPI schemas, but no tests
+                or docs
+              -->
+              <generateModels>true</generateModels>
+              <generateModelTests>false</generateModelTests>
+              <generateModelDocumentation>false</generateModelDocumentation>
+
+              <generateSupportingFiles>true</generateSupportingFiles>
+
+              <!-- Configuration specific to the Java client generator -->
+              <configOptions>
+                <disallowAdditionalPropertiesIfNotPresent>false</disallowAdditionalPropertiesIfNotPresent>
+              </configOptions>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>${frontend-maven-plugin.version}</version>
+        <configuration>
+          <nodeVersion>${nodeVersion}</nodeVersion>
+          <installDirectory>${project.build.directory}</installDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <id>default-install-node-and-npm</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>rest-client-npm-install</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <workingDirectory>${project.build.directory}/generated-sources/${jsModuleName}</workingDirectory>
+              <arguments>install</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>rest-client-npm-run-build</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <workingDirectory>${project.build.directory}/generated-sources/${jsModuleName}</workingDirectory>
+              <environmentVariables>
+                <NODE_ENV>production</NODE_ENV>
+              </environmentVariables>
+              <arguments>run build:lib</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>frontend-npm-install</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <workingDirectory>${project.basedir}/src/main/webapp</workingDirectory>
+              <arguments>install</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>frontend-npm-run-build</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <workingDirectory>${project.basedir}/src/main/webapp</workingDirectory>
+              <arguments>run build</arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>${jetty-maven-plugin.version}</version>
+        <configuration>
+          <supportedPackagings>jar</supportedPackagings>
+          <webApp>
+            <resourceBases>
+              <resourceBase>${project.basedir}/src/main/webapp/dist</resourceBase>
+            </resourceBases>
+          </webApp>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

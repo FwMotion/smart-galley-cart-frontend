@@ -1,0 +1,3 @@
+= Smart Galley Cart Frontend
+
+Frontend Web App to interact with a Smart Galley Cart's service.

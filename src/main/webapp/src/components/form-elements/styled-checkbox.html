@@ -1,0 +1,16 @@
+<bindable name="label"></bindable>
+<bindable name="checked" mode="two-way"></bindable>
+
+<containerless/>
+
+<label class="block flex gap-2">
+  <input type="checkbox"
+         class="w-6 h-6
+                rounded-lg"
+         checked.bind="checked">
+  <div class="flex-auto
+              text-lg
+              text-left align-middle">
+    ${label}
+  </div>
+</label>

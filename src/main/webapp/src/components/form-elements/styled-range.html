@@ -1,0 +1,22 @@
+<bindable name="label"></bindable>
+<bindable name="max"></bindable>
+<bindable name="min"></bindable>
+<bindable name="value" mode="two-way"></bindable>
+
+<containerless/>
+
+<label class="block">
+  <div class="block
+              text-md
+              text-slate-900
+              text-left align-bottom
+              select-none">
+    ${label}
+  </div>
+  <input type="range"
+         class="block
+                w-full"
+         min.bind="min"
+         max.bind="max"
+         value.bind="value"/>
+</label>

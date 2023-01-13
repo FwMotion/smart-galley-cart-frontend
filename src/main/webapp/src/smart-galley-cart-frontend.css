@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  select,
+  [type="text"], [type="email"], [type="url"], [type="password"],
+  [type="number"], [type="date"], [type="datetime-local"], [type="month"],
+  [type="search"], [type="tel"], [type="time"], [type="week"] {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}

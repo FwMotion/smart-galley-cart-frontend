@@ -1,0 +1,13 @@
+/.mvn/wrapper/*.jar
+
+target/
+!**/src/**/target/
+
+src/main/webapp/coverage/
+src/main/webapp/dist/
+src/main/webapp/**/node_modules/
+src/main/webapp/.nyc_output
+
+.idea/
+*.iml
+/gen/

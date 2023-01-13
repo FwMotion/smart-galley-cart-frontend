@@ -1,0 +1,37 @@
+<bindable name="isCloseable"></bindable>
+<bindable name="activeModal" mode="two-way"></bindable>
+<bindable name="modalName"></bindable>
+
+<containerless/>
+
+<div
+  if.bind="activeModal === modalName"
+  class="block absolute
+          top-0 left-0 w-screen h-screen
+          p-6
+          grid">
+  <div class="absolute top-0 left-0 w-screen h-screen select-none"
+       click.trigger="activeModal = null"
+       if.bind="isCloseable">
+    &nbsp;
+  </div>
+  <div class="absolute top-0 left-0 w-screen h-screen select-none"
+       if.bind="!isCloseable">
+    &nbsp;
+  </div>
+  <au-slot>
+    <div class="place-self-center
+                w-3/4 lg:w-1/2 min-h-fit
+                drop-shadow-xl shadow">
+      <div class="w-full h-full
+                  border border-2 rounded-sm sm:rounded-md
+                  border-slate-900 bg-slate-50 text-slate-900
+                  px-4 py-8
+                  text-xl md:text-3xl lg:text-4xl
+                  select-none
+                  grid place-content-center">
+        No Modal Content Defined
+      </div>
+    </div>
+  </au-slot>
+</div>

@@ -1,0 +1,22 @@
+<bindable name="state"></bindable>
+
+<containerless/>
+
+<div class="w-fill md:w-64 border border-1 border-slate-400 rounded-sm sm:rounded-md pt-1">
+  <div class="w-fill px-2 pb-0 bg-slate-50 border-b border-1 border-slate-400 text-center">
+    The doors are currently
+  </div>
+  <div class="rounded-b-sm sm:rounded-b-md
+            w-full h-32
+            text-2xl
+            font-bold
+            grid place-content-center"
+       bg-red-100.class="state === 'open'"
+       bg-green-200.class="state === 'closed'"
+       bg-sky-200.class="state !== 'open' && state !== 'closed'"
+       text-red-600.class="state === 'open'"
+       text-green-900.class="state === 'closed'"
+       text-sky-700.class="state !== 'open' && state !== 'closed'">
+    ${state}
+  </div>
+</div>

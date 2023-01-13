@@ -1,0 +1,58 @@
+<import from="../form-elements/styled-checkbox.html"></import>
+<import from="../form-elements/styled-range.html"></import>
+<import from="../form-elements/styled-select.html"></import>
+
+<div class="w-full h-full
+                border border-1 rounded-sm sm:rounded-md
+                border-slate-400 bg-slate-50 text-slate-800
+                grid grid-cols-2">
+  <div class="block col-span-2
+              w-full
+              rounded-t-sm sm:rounded-t-md
+              p-2 pb-6
+              grid gap-2">
+    <styled-checkbox label="LED Light Power"
+                     checked.bind="lightsOptions.on">
+    </styled-checkbox>
+    <styled-range label="Brightness"
+                  min="1"
+                  max="255"
+                  value.bind="lightsOptions.brightness">
+    </styled-range>
+    <styled-select label="Color One"
+                   options.bind="lightColors"
+                   selected.bind="lightsOptions.lightOne">
+    </styled-select>
+    <styled-select label="Color Two"
+                   options.bind="lightColors"
+                   selected.bind="lightsOptions.lightTwo">
+    </styled-select>
+  </div>
+
+  <button type="submit"
+          class="block
+                  w-full
+                  border border-l-0 border-b-0
+                  rounded-bl-sm sm:rounded-bl-md
+                  py-2
+                  text-center
+                  border-slate-400 bg-red-200 text-slate-900
+                  hover:bg-red-400
+                  active:bg-red-700 active:text-red-200"
+          click.trigger="activeModal = null">
+    cancel
+  </button>
+  <button type="submit"
+          class="block
+                  w-full
+                  border-t
+                  rounded-br-sm sm:rounded-br-md
+                  py-2
+                  text-center
+                  border-slate-400 bg-green-100 text-slate-900
+                  hover:bg-green-200
+                  active:bg-green-600 active:text-green-100"
+          click.trigger="sendChange">
+    send
+  </button>
+</div>
