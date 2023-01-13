@@ -13,11 +13,11 @@ export class SmartGalleyCartFrontend {
   failedDoorStatusAttempts = 0
 
   failedDoorStatusAttemptsChanged() {
-    if (this.failedDoorStatusAttempts >= (process.env.FAILURES_BEFORE_PENDING ?? 8)) {
+    if (this.failedDoorStatusAttempts >= parseInt(process.env.FAILURES_BEFORE_PENDING ?? '8')) {
       this.doorState = 'pending'
     }
 
-    if (this.failedDoorStatusAttempts >= (process.env.FAILURES_BEFORE_MODAL ?? 40)) {
+    if (this.failedDoorStatusAttempts >= parseInt(process.env.FAILURES_BEFORE_MODAL ?? '40')) {
       this.activeModal = 'network-failure'
     } else if (this.activeModal === 'network-failure') {
       this.activeModal = null
@@ -31,10 +31,10 @@ export class SmartGalleyCartFrontend {
           this.failedDoorStatusAttempts = 0
           this.doorState = response.doorState
         })
-        .catch(reason => {
+        .catch(() => {
           this.failedDoorStatusAttempts++
         })
       this.failedDoorStatusAttempts++;
-    }, { delay: (process.env.DOOR_STATE_UPDATE_INTERVAL_MS ?? 250), persistent: true })
+    }, { delay: parseInt(process.env.DOOR_STATE_UPDATE_INTERVAL_MS ?? '250'), persistent: true })
   }
 }
