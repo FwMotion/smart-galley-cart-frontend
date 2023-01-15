@@ -3,7 +3,7 @@ import {CartApi, Configuration} from 'smart_galley_cart'
 
 export class SmartGalleyCartFrontend {
   activeModal = null
-  doorState = 'open'
+  doorState = 'pending'
 
   cartApi = new CartApi(new Configuration({
     basePath: process.env.CART_API_BASEPATH ?? 'http://localhost:8080'

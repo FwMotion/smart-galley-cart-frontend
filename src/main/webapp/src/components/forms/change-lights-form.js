@@ -17,8 +17,8 @@ export class ChangeLightsForm {
   lightsOptions = {
     on: true,
     brightness: 127,
-    lightOne: 'white',
-    lightTwo: 'red'
+    colorOne: 'white',
+    colorTwo: 'red'
   }
 
   sendChange() {
