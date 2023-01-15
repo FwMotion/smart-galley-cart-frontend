@@ -1,6 +1,6 @@
 <import from="../form-elements/styled-checkbox.html"></import>
 <import from="../form-elements/styled-range.html"></import>
-<import from="../form-elements/styled-select.html"></import>
+<import from="../form-elements/styled-radios.html"></import>
 
 <div class="w-full h-full
                 border border-1 rounded-sm sm:rounded-md
@@ -19,14 +19,16 @@
                   max="255"
                   value.bind="lightsOptions.brightness">
     </styled-range>
-    <styled-select label="Color One"
+    <styled-radios label="Color One"
+                   group="colorOne"
                    options.bind="lightColors"
                    selected.bind="lightsOptions.colorOne">
-    </styled-select>
-    <styled-select label="Color Two"
+    </styled-radios>
+    <styled-radios label="Color Two"
+                   group="colorTwo"
                    options.bind="lightColors"
                    selected.bind="lightsOptions.colorTwo">
-    </styled-select>
+    </styled-radios>
   </div>
 
   <button type="submit"

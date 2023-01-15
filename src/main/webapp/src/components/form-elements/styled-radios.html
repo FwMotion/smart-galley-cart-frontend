@@ -1,0 +1,43 @@
+<bindable name="label"></bindable>
+<bindable name="group"></bindable>
+<bindable name="options"></bindable>
+<bindable name="selected" mode="two-way"></bindable>
+
+<containerless/>
+
+<div class="block flex flex-col sm:flex-row rounded-md shadow-sm">
+  <div class="inline-flex
+              rounded-t-md sm:rounded-t-none sm:rounded-l-md
+              border
+              pl-3 pr-3
+              text-lg
+              border-slate-500 bg-slate-300 text-slate-900
+              items-right align-bottom
+              select-none">
+    ${label}
+  </div>
+  <div class="flex-auto flex flex-col sm:flex-row">
+    <label repeat.for="optionName of options"
+           class="sm:grow">
+      <input type="radio"
+             class="hidden peer"
+             name.bind="group"
+             model.bind="optionName"
+             checked.bind="selected"/>
+      <div class="block
+                  w-full h-full
+                  border border-t-0 sm:border-t sm:border-l-0
+                  pl-1 pr-1
+                  text-lg
+                  border-slate-500 bg-slate-50 text-slate-900
+                  peer-checked:bg-sky-400 active:bg-sky-600
+                  text-center align-bottom
+                  select-none"
+           rounded-b-md.class="$last"
+           sm:rounded-b-none.class="$last"
+           sm:rounded-r-md.class="$last">
+        ${optionName}
+      </div>
+    </label>
+  </div>
+</div>

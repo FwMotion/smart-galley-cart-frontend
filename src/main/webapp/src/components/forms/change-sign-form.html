@@ -1,6 +1,6 @@
 <import from="../form-elements/styled-checkbox.html"></import>
 <import from="../form-elements/styled-range.html"></import>
-<import from="../form-elements/styled-select.html"></import>
+<import from="../form-elements/styled-radios.html"></import>
 
 <div class="w-full h-full
                 border border-1 rounded-sm sm:rounded-md
@@ -19,10 +19,11 @@
                   max="255"
                   value.bind="signOptions.brightness">
     </styled-range>
-    <styled-select label="Sign Pattern"
+    <styled-radios label="Sign Pattern"
+                   group="signPattern"
                    options.bind="signPatterns"
                    selected.bind="signOptions.pattern">
-    </styled-select>
+    </styled-radios>
   </div>
 
   <button type="submit"
